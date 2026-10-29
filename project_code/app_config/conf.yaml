@@ -1,0 +1,32 @@
+llm:
+  api_key: EMPTY
+  base_url: http://localhost:8090/v1
+  llm_model: openai/gpt-oss-20b
+
+logging_and_records:
+  output_path: /outputs
+
+database:
+    manual_pdf_path: docs/Subaru_Forester_carbook_080822.pdf #STRYKER-OPERATOR.PDF # DECATHLON.pdf #
+    pdf_reader: docling   # "pypdf" or "docling"
+
+rag:
+  embedding_model: BAAI/bge-m3 # BAAI/bge-m3, all-MiniLM-L6-v2
+  top_k: 5
+  retrieval_mode: parent_child   # "flat" (current) or "parent_child"
+  flat_chunk_size: 1000
+  flat_chunk_overlap: 200
+  parent_chunk_size: 3000
+  parent_chunk_overlap: 300
+  child_chunk_size: 400
+  child_chunk_overlap: 50
+  search_mode: semantic   # "semantic" , "hybrid"
+  bm25_top_k: 20          #
+  rrf_k: 60
+  build_faiss_db: false
+  faiss_db_dir: outputs/faiss_db
+
+qa_cache:
+  enabled: false
+  cache_dir: outputs/qa_cache
+  similarity_threshold: 0.92
