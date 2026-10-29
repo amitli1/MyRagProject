@@ -11,7 +11,7 @@ import time
 from openai import OpenAI
 
 from project_code.app_config.settings import app_settings, log_app_settings
-from project_code.llm.main_llm_rag import run_rag, build_chunks
+from project_code.llm.llm_rag import run_rag, build_chunks
 from project_code.utils.logger_utils import log_boxed
 from project_code.llm.qa_cache import QACache
 

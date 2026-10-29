@@ -23,7 +23,7 @@ rag:
   search_mode: semantic   # "semantic" , "hybrid"
   bm25_top_k: 20          #
   rrf_k: 60
-  build_faiss_db: false
+  build_faiss_db: true
   faiss_db_dir: outputs/faiss_db
 
 qa_cache:
