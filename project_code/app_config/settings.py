@@ -19,6 +19,7 @@ class Logging_and_records(BaseModel):
 class DataBase(BaseModel):
     manual_pdf_path: str
     pdf_reader: str = "pypdf"  # which library to use to read the PDF: "pypdf" or "docling"
+    docling_artifacts_path: str = ""
 
 class RAG(BaseModel):
     embedding_model: str

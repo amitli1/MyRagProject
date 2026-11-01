@@ -9,6 +9,7 @@ logging_and_records:
 database:
     manual_pdf_path: docs/Subaru_Forester_carbook_080822.pdf #STRYKER-OPERATOR.PDF # DECATHLON.pdf #
     pdf_reader: docling   # "pypdf" or "docling"
+    docling_artifacts_path: ""
 
 rag:
   embedding_model: BAAI/bge-m3 # BAAI/bge-m3, all-MiniLM-L6-v2

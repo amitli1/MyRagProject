@@ -13,6 +13,8 @@ import faiss
 from sentence_transformers import SentenceTransformer
 import time
 
+from project_code.app_config.settings import app_settings
+
 EMBEDDING_MODEL_NAME = "all-MiniLM-L6-v2"
 
 
@@ -86,7 +88,9 @@ def _extract_pages_from_pdf_docling(document_path):
     slower and requiring the optional 'docling' dependency.
     """
     try:
-        from docling.document_converter import DocumentConverter
+        from docling.document_converter import DocumentConverter, PdfFormatOption
+        from docling.datamodel.pipeline_options import PdfPipelineOptions
+        from docling.datamodel.base_models import InputFormat
     except ImportError as e:
         raise ImportError(
             "pdf_reader='docling' requires the 'docling' package. "
@@ -94,7 +98,16 @@ def _extract_pages_from_pdf_docling(document_path):
         ) from e
 
     logging.info("Extracting PDF text with docling: '%s'", document_path)
-    converter = DocumentConverter()
+
+    artifacts_path = getattr(app_settings.database, "docling_artifacts_path", "") or None
+    if artifacts_path:
+        pipeline_options = PdfPipelineOptions(artifacts_path=artifacts_path)
+        converter = DocumentConverter(
+            format_options={InputFormat.PDF: PdfFormatOption(pipeline_options=pipeline_options)}
+        )
+    else:
+        converter = DocumentConverter()
+
     result = converter.convert(str(document_path))
     doc = result.document
 
@@ -438,7 +451,7 @@ def run_rag(client, manual_index: ManualIndex, user_question, top_k,
     )
 
     response = client.chat.completions.create(
-        model="openai/gpt-oss-20b",
+        model=app_settings.llm.llm_model,
         messages=[
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt},
