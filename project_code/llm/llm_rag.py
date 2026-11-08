@@ -439,15 +439,28 @@ def run_rag(client, manual_index: ManualIndex, user_question, top_k,
 
     context = "\n\n---\n\n".join(c.text for c in relevant_chunks)
 
+    # system_prompt = (
+    #     "You are a helpful assistant that answers questions strictly based on the "
+    #     "provided document context. If the answer is not in the context, say you "
+    #     "don't know."
+    # )
+    # user_prompt = (
+    #     f"Context from the document:\n{context}\n\n"
+    #     f"Question: {user_question}\n\n"
+    #     "Answer using only the information in the context above."
+    # )
     system_prompt = (
         "You are a helpful assistant that answers questions strictly based on the "
-        "provided document context. If the answer is not in the context, say you "
-        "don't know."
+        "provided document context. Think and reason step by step in English, "
+        "but write your FINAL answer in the same language as the user's question "
+        "(e.g., if the question is in Hebrew, answer in Hebrew). "
+        "If the answer is not in the context, say you don't know, in the user's language."
     )
     user_prompt = (
         f"Context from the document:\n{context}\n\n"
         f"Question: {user_question}\n\n"
-        "Answer using only the information in the context above."
+        "Answer using only the information in the context above. "
+        "Reason internally in English, then respond in the same language as the question."
     )
 
     response = client.chat.completions.create(
