@@ -33,3 +33,12 @@ def log_boxed(title: str, lines: list[str]):
 def create_output_folder():
     folder_path = os.path.join(app_settings.logging_and_records.output_path, CURRENT_DATE)
     os.makedirs(folder_path, exist_ok=True)
+
+def print_version():
+    version_path = os.path.join(os.path.dirname(__file__), "version.txt")
+    try:
+        with open(version_path, "r") as f:
+            version_str = f.read().strip()
+    except FileNotFoundError:
+        version_str = "unknown"
+    log_boxed("Application Version", [version_str])

@@ -2,6 +2,7 @@ llm:
   api_key: EMPTY
   base_url: http://localhost:8090/v1
   llm_model: openai/gpt-oss-20b
+  reasoning_effort: low
 
 logging_and_records:
   output_path: /outputs

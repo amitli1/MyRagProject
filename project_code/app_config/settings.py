@@ -12,6 +12,7 @@ class LLM(BaseModel):
     api_key: str
     base_url: str
     llm_model: str
+    reasoning_effort: str
 
 class Logging_and_records(BaseModel):
     output_path: str

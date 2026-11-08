@@ -4,11 +4,13 @@
 
 import logging
 from project_code.llm.orchestrator import Orchestrator
-
+from project_code.utils.utils import print_version
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s [%(funcName)s] %(message)s")
     logger = logging.getLogger(__name__)
+
+    print_version()
 
     orchestrator = Orchestrator()
 

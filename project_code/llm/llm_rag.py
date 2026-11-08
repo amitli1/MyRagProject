@@ -457,7 +457,7 @@ def run_rag(client, manual_index: ManualIndex, user_question, top_k,
             {"role": "user", "content": user_prompt},
         ],
         extra_body={
-            "reasoning_effort": "low",
+             "reasoning_effort": app_settings.llm.reasoning_effort,
             "seed": 0,
         }
     )
