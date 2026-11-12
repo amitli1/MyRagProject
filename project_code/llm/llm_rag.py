@@ -389,10 +389,10 @@ def build_chunks(document, rag_settings, pdf_reader: str = "pypdf") -> ManualInd
     build_faiss_db = getattr(rag_settings, "build_faiss_db", True)
 
     if not build_faiss_db and faiss_db_dir:
-        logging.info("build_faiss_db=false -> loading FAISS DB from '%s'", faiss_db_dir)
+        #logging.info("build_faiss_db=false -> loading FAISS DB from '%s'", faiss_db_dir)
         return load_manual_index(faiss_db_dir)
 
-    logging.info("build_faiss_db=true -> reading PDF (pdf_reader='%s') and (re)building the FAISS DB", pdf_reader)
+    #logging.info("build_faiss_db=true -> reading PDF (pdf_reader='%s') and (re)building the FAISS DB", pdf_reader)
     pages = _extract_pages_from_pdf(document, pdf_reader=pdf_reader)
 
     if rag_settings.retrieval_mode == "parent_child":
@@ -426,7 +426,8 @@ def build_chunks(document, rag_settings, pdf_reader: str = "pypdf") -> ManualInd
 
 def run_rag(client, manual_index: ManualIndex, user_question, top_k,
             search_mode: str = "semantic", bm25_top_k: int = 20, rrf_k: int = 60):
-    logging.info("Retrieving chunks relevant to the question (RAG - %s)", search_mode.upper())
+
+    #logging.info("Retrieving chunks relevant to the question (RAG - %s)", search_mode.upper())
     start_time = time.time()
     relevant_chunks = _retrieve_relevant_chunks(
         manual_index, user_question, top_k=top_k,
@@ -435,7 +436,8 @@ def run_rag(client, manual_index: ManualIndex, user_question, top_k,
     # Debug-only: log where each retrieved chunk came from (page/header), without
     # exposing this to the end user / final answer.
     for c in relevant_chunks:
-        logging.info("\t Retrieved chunk [page=%s, header='%s']: %.80s...", c.page, c.header, c.text)
+        #logging.info("\t Retrieved chunk [page=%s, header='%s']: %.80s...", c.page, c.header, c.text)
+        None
 
     context = "\n\n---\n\n".join(c.text for c in relevant_chunks)
 

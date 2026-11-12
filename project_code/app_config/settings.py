@@ -67,8 +67,13 @@ def load_config(path: str = "app_config/conf.yaml") -> Settings:
     # Anchor relative paths to the repo root so they work regardless of the
     # process's current working directory (important for ADK/agent runners).
     settings.database.manual_pdf_path = str(REPO_ROOT / settings.database.manual_pdf_path)
-    settings.qa_cache.cache_dir       = str(REPO_ROOT / settings.qa_cache.cache_dir)
-    settings.rag.faiss_db_dir         = str(REPO_ROOT / settings.rag.faiss_db_dir)
+
+    # Use the manual's filename (without extension) as a sub-folder name so
+    # each document gets its own FAISS db + QA cache under outputs/.
+    doc_name = Path(settings.database.manual_pdf_path).stem
+
+    settings.qa_cache.cache_dir = str(REPO_ROOT / settings.qa_cache.cache_dir / doc_name)
+    settings.rag.faiss_db_dir   = str(REPO_ROOT / settings.rag.faiss_db_dir / doc_name)
     return settings
 
 def _flatten_for_log(data: dict, indent: int = 0) -> list[str]:

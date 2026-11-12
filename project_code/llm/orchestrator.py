@@ -58,7 +58,7 @@ class Orchestrator:
             rrf_k=app_settings.rag.rrf_k,
         )
         end_time = time.time()
-        logger.info("Elapsed time: %.2f seconds", end_time - start_time)
+        #logger.info("Elapsed time: %.2f seconds", end_time - start_time)
         return answer
 
     # ------------------------------------------------------------------

@@ -42,3 +42,8 @@ def init_logger():
     # Add handlers to the logger
     logger.addHandler(console_handler)
     logger.addHandler(file_handler)
+
+    # Silence noisy third-party HTTP client logs
+    logging.getLogger("httpx").setLevel(logging.WARNING)
+    logging.getLogger("httpcore").setLevel(logging.WARNING)
+    logging.getLogger("urllib3").setLevel(logging.WARNING)  # in case it's used elsewhere

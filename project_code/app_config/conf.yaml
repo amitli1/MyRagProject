@@ -2,13 +2,13 @@ llm:
   api_key: EMPTY
   base_url: http://localhost:8090/v1
   llm_model: openai/gpt-oss-20b
-  reasoning_effort: lowl
+  reasoning_effort: low
 
 logging_and_records:
   output_path: /outputs
 
 database:
-    manual_pdf_path: docs/Subaru_Forester_carbook_080822.pdf #STRYKER-OPERATOR.PDF # DECATHLON.pdf #
+    manual_pdf_path: docs/DECATHLON.pdf #policy_insurance.pdf #Subaru_Forester_carbook_080822.pdf #STRYKER-OPERATOR.PDF # DECATHLON.pdf #
     pdf_reader: docling   # "pypdf" or "docling"
     docling_artifacts_path: ""
 
@@ -25,10 +25,10 @@ rag:
   search_mode: semantic   # "semantic" , "hybrid"
   bm25_top_k: 20          #
   rrf_k: 60
-  build_faiss_db: true
+  build_faiss_db: false
   faiss_db_dir: outputs/faiss_db
 
 qa_cache:
-  enabled: false
+  enabled: true
   cache_dir: outputs/qa_cache
   similarity_threshold: 0.92
